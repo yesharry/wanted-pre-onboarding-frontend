@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const SignIn = () => {
   const [inputs, setInputs] = useState({
-    id: '',
+    email: '',
     pw: '',
   });
 
-  const { id, pw } = inputs;
+  const { email, pw } = inputs;
 
   const handleInput = e => {
     const { name, value } = e.target;
@@ -17,13 +18,23 @@ const SignIn = () => {
     });
   };
 
-  const isValid = id.includes('@') && pw.length >= 8;
+  const isValid = email.includes('@') && pw.length >= 8;
+
+  const navigate = useNavigate();
+
+  const goSignUp = () => {
+    navigate('/signup');
+  };
 
   return (
     <Wrapper>
+      <h1>Login Page</h1>
       <IdInput onChange={handleInput} />
       <PwInput onChange={handleInput} />
-      <Btn disabled={!isValid}>로그인</Btn>
+      <Btn disabled={!isValid} isValid={isValid}>
+        로그인
+      </Btn>
+      <Span onClick={goSignUp}>회원가입</Span>
     </Wrapper>
   );
 };
@@ -31,15 +42,17 @@ const SignIn = () => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const IdInput = styled.input.attrs(props => ({
   type: 'text',
-  name: 'id',
+  name: 'email',
   placeholder: '이메일',
 }))`
   width: 250px;
-  height: 30px;
+  height: 35px;
 `;
 
 const PwInput = styled(IdInput).attrs(props => ({
@@ -48,6 +61,24 @@ const PwInput = styled(IdInput).attrs(props => ({
   placeholder: '비밀번호',
 }))``;
 
-const Btn = styled.button``;
+const Btn = styled.button`
+  width: 258px;
+  height: 40px;
+  background-color: ${({ isValid }) => (isValid ? 'tomato' : 'gray')};
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
+
+const Span = styled.span`
+  font-size: 15px;
+  text-decoration: none;
+  color: gray;
+  cursor: pointer;
+  &:hover {
+    color: black;
+  }
+`;
 
 export default SignIn;
