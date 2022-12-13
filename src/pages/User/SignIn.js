@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import API from '../../config';
+// import API from '../../config';
 import styled from 'styled-components';
 
 const SignIn = () => {
@@ -27,33 +27,10 @@ const SignIn = () => {
     navigate('/auth/signup');
   };
 
-  // const postSignIn = () => {
-  //   fetch(`${API.users}/signin`, {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({
-  //       email: email,
-  //       password: password,
-  //     }),
-  //   })
-  //     .then(res => {
-  //       if (res.ok) {
-  //         return res.json();
-  //       } else {
-  //         alert('이메일과 비밀번호를 확인해주세요!');
-  //       }
-  //     })
-  //     .then(result => {
-  //       alert('로그인이 완료되었습니다! 환영합니다');
-  //       localStorage.setItem('access_token', result.access_token);
-  //       navigate('/todo');
-  //     });
-  // };
-
   const postSignIn = async () => {
     await axios({
       method: 'POST',
-      url: `${API.users}/signin`,
+      url: 'https://pre-onboarding-selection-task.shop/auth/signin',
       header: { 'Content-Type': 'application/json' },
       data: {
         email: email,

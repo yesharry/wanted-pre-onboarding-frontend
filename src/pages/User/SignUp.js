@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import API from '../../config';
+// import API from '../../config';
 import styled from 'styled-components';
 
 const SignUp = () => {
@@ -26,7 +26,7 @@ const SignUp = () => {
   const postSignUp = async () => {
     await axios({
       method: 'POST',
-      url: `${API.users}/signup`,
+      url: 'https://pre-onboarding-selection-task.shop/auth/signup',
       header: { 'Content-Type': 'application/json' },
       data: {
         email: email,

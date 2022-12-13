@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-// import Main from './pages/Main';
 import SignIn from './pages/User/SignIn';
 import SignUp from './pages/User/SignUp';
 import Todo from './pages/Todo/Todo';
