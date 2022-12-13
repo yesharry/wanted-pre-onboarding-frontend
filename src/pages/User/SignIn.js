@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import API from '../../config';
 import styled from 'styled-components';
@@ -8,7 +9,6 @@ const SignIn = () => {
     email: '',
     password: '',
   });
-
   const { email, password } = inputs;
 
   const handleInput = e => {
@@ -24,28 +24,50 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const goSignUp = () => {
-    navigate('/signup');
+    navigate('/auth/signup');
   };
 
-  const postSignIn = () => {
-    fetch(`${API.users}/signin`, {
+  // const postSignIn = () => {
+  //   fetch(`${API.users}/signin`, {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({
+  //       email: email,
+  //       password: password,
+  //     }),
+  //   })
+  //     .then(res => {
+  //       if (res.ok) {
+  //         return res.json();
+  //       } else {
+  //         alert('이메일과 비밀번호를 확인해주세요!');
+  //       }
+  //     })
+  //     .then(result => {
+  //       alert('로그인이 완료되었습니다! 환영합니다');
+  //       localStorage.setItem('access_token', result.access_token);
+  //       navigate('/todo');
+  //     });
+  // };
+
+  const postSignIn = async () => {
+    await axios({
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+      url: `${API.users}/signin`,
+      header: { 'Content-Type': 'application/json' },
+      data: {
         email: email,
         password: password,
-      }),
+      },
     })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          alert('Please check your email and password again!');
-        }
-      })
-      .then(result => {
-        localStorage.setItem('access_token', result.access_token);
+        localStorage.setItem('access_token', res.data.access_token);
+        alert('로그인이 완료되었습니다. 환영합니다!');
         navigate('/todo');
+        window.location.replace('/todo');
+      })
+      .catch(err => {
+        alert(err.res.data.message);
       });
   };
 

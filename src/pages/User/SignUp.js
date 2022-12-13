@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import API from '../../config';
 import styled from 'styled-components';
@@ -8,7 +9,6 @@ const SignUp = () => {
     email: '',
     password: '',
   });
-
   const { email, password } = inputs;
 
   const handleInput = e => {
@@ -23,25 +23,22 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const postSignUp = () => {
-    fetch(`${API.users}/signup`, {
+  const postSignUp = async () => {
+    await axios({
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+      url: `${API.users}/signup`,
+      header: { 'Content-Type': 'application/json' },
+      data: {
         email: email,
         password: password,
-      }),
+      },
     })
       .then(res => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          alert('Please check your email and password again!');
-        }
+        alert('회원가입이 완료되었습니다.');
+        navigate('/');
       })
-      .then(result => {
-        localStorage.setItem('access_token', result.access_token);
-        navigate('/signin');
+      .catch(err => {
+        alert(err.res.data.message);
       });
   };
 
@@ -86,6 +83,7 @@ const Btn = styled.button`
   color: white;
   border: none;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 export default SignUp;
