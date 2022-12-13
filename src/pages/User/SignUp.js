@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API from '../../config';
 import styled from 'styled-components';
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
     email: '',
-    pw: '',
-    nick: '',
+    password: '',
   });
 
-  const { email, pw } = inputs;
+  const { email, password } = inputs;
 
   const handleInput = e => {
     const { name, value } = e.target;
@@ -19,15 +19,38 @@ const SignUp = () => {
     });
   };
 
-  const isValid = email.includes('@') && pw.length >= 8;
+  const isValid = email.includes('@') && password.length >= 8;
+
+  const navigate = useNavigate();
+
+  const postSignUp = () => {
+    fetch(`${API.users}/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          alert('Please check your email and password again!');
+        }
+      })
+      .then(result => {
+        localStorage.setItem('access_token', result.access_token);
+        navigate('/signin');
+      });
+  };
 
   return (
     <Wrapper>
       <h1>Sing Up Page</h1>
       <IdInput onChange={handleInput} />
-      <NickInput onChange={handleInput} />
       <PwInput onChange={handleInput} />
-      <Btn disabled={!isValid} isValid={isValid}>
+      <Btn disabled={!isValid} isValid={isValid} onClick={postSignUp}>
         회원가입
       </Btn>
     </Wrapper>
@@ -50,15 +73,9 @@ const IdInput = styled.input.attrs(props => ({
   height: 35px;
 `;
 
-const NickInput = styled(IdInput).attrs(props => ({
-  type: 'text',
-  name: 'nick',
-  placeholder: '닉네임',
-}))``;
-
 const PwInput = styled(IdInput).attrs(props => ({
   type: 'password',
-  name: 'pw',
+  name: 'password',
   placeholder: '비밀번호',
 }))``;
 

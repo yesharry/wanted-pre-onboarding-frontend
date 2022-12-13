@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API from '../../config';
 import styled from 'styled-components';
 
 const SignIn = () => {
   const [inputs, setInputs] = useState({
     email: '',
-    pw: '',
+    password: '',
   });
 
-  const { email, pw } = inputs;
+  const { email, password } = inputs;
 
   const handleInput = e => {
     const { name, value } = e.target;
@@ -18,7 +19,7 @@ const SignIn = () => {
     });
   };
 
-  const isValid = email.includes('@') && pw.length >= 8;
+  const isValid = email.includes('@') && password.length >= 8;
 
   const navigate = useNavigate();
 
@@ -26,12 +27,34 @@ const SignIn = () => {
     navigate('/signup');
   };
 
+  const postSignIn = () => {
+    fetch(`${API.users}/signin`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    })
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          alert('Please check your email and password again!');
+        }
+      })
+      .then(result => {
+        localStorage.setItem('access_token', result.access_token);
+        navigate('/todo');
+      });
+  };
+
   return (
     <Wrapper>
       <h1>Login Page</h1>
       <IdInput onChange={handleInput} />
       <PwInput onChange={handleInput} />
-      <Btn disabled={!isValid} isValid={isValid}>
+      <Btn disabled={!isValid} isValid={isValid} onClick={postSignIn}>
         로그인
       </Btn>
       <Span onClick={goSignUp}>회원가입</Span>
@@ -57,7 +80,7 @@ const IdInput = styled.input.attrs(props => ({
 
 const PwInput = styled(IdInput).attrs(props => ({
   type: 'password',
-  name: 'pw',
+  name: 'password',
   placeholder: '비밀번호',
 }))``;
 
