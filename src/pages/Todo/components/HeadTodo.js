@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const HeadTodo = () => {
+const HeadTodo = ({ todoList }) => {
+  const logOut = () => {
+    localStorage.removeItem('access_token');
+    window.location.reload();
+  };
+
   return (
     <HeadWrapper>
-      <h1>TODO LIST (0)</h1>
-      <span>로그아웃</span>
+      <h1>TODO LIST ({todoList.length})</h1>
+      <Btn onClick={logOut}>로그아웃</Btn>
     </HeadWrapper>
   );
 };
@@ -21,17 +26,24 @@ const HeadWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
 
-  span {
-    width: 70px;
-    height: 30px;
+const Btn = styled.button`
+  width: 70px;
+  height: 30px;
+  background-color: #20c997;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    background-color: #63e6be;
+  }
+  &:active {
     background-color: #20c997;
-    border-radius: 10px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
   }
 `;
 

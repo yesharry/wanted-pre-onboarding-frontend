@@ -3,39 +3,50 @@ import axios from 'axios';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
 
-const CreateTodo = ({ todoList }) => {
+const CreateTodo = ({ accessToken }) => {
   const [open, setOpen] = useState(false);
-
   const onToggle = () => setOpen(!open);
 
-  // const postTodo = id => async () => {
-  //   await axios({
-  //     method: 'POST',
-  //     url: `https://pre-onboarding-selection-task.shop/todo/${id}`,
-  //     headers: {
-  //       Authorization: `Bearer ${todoList.access_token}`,
-  //       'Content-Type': 'application/json',
-  //     },
-  //     data: {
-  //       todo: todoList.todo,
-  //       isCompleted: todoList.isCompleted,
-  //     },
-  //   })
-  //     .then(res => {
-  //       window.location.reload('/todo');
-  //     })
-  //     .catch(err => {
-  //       alert(err.res.data.message);
-  //     });
-  // };
+  const [post, setPost] = useState({
+    todo: '',
+  });
+
+  const { todo } = post;
+
+  const postTodo = async () => {
+    await axios({
+      method: 'POST',
+      url: 'https://pre-onboarding-selection-task.shop/todos',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      data: { todo: todo },
+    })
+      .then(res => {
+        alert('등록되었습니다.');
+        // window.location.reload('/todo');
+      })
+      .catch(err => {
+        alert(err.res.data.message);
+      });
+  };
+
+  const handleInput = e => {
+    const { name, value } = e.target;
+    setPost({
+      ...post,
+      [name]: value,
+    });
+  };
 
   return (
     <>
       {open && (
         <InsertFormPosition>
           <InsertForm>
-            <Input autoFocus />
-            <Btn>등록</Btn>
+            <Input autoFocus onChange={handleInput} />
+            <Btn onClick={postTodo}>등록</Btn>
           </InsertForm>
         </InsertFormPosition>
       )}

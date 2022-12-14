@@ -7,20 +7,23 @@ import ListTodo from './components/ListTodo';
 import styled from 'styled-components';
 
 const Todo = () => {
-  const [todoList, setTodoList] = useState([]);
-  const [accessToken, setAccessToken] = useState('');
+  const [todoList, setTodoList] = useState([]); // 리스트 불러오기 위한 state
+  const [accessToken, setAccessToken] = useState(''); // 토큰을 담기 위한 state
 
   useEffect(() => {
     const access_token = localStorage.getItem('access_token');
-    setAccessToken(access_token);
+    setAccessToken(access_token); // 변수에 토큰 불러오고 state에 토큰 담음
+
     const getTodo = async () => {
       await axios({
         method: 'GET',
-        url: 'https://pre-onboarding-selection-task.shop/todo',
-        headers: { Authorization: `Bearer ${access_token}` },
+        url: 'https://pre-onboarding-selection-task.shop/todos',
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
       })
         .then(res => {
-          setTodoList(res.data);
+          setTodoList(res.data); // state 안에 불러온 todo 담기
         })
         .catch(err => {
           console.log(err.res.data.message);
@@ -28,13 +31,18 @@ const Todo = () => {
     };
     getTodo();
   }, []);
+  // 위의 코드들로 todoList와 accessToken 안에 각각의 데이터가 담긴 상태.
 
   return (
     <Wrapper>
       <TodoBox>
-        <HeadTodo />
-        <ListTodo todoList={todoList} accessToken={accessToken} />
-        <CreateTodo todoList={todoList} />
+        <HeadTodo todoList={todoList} />
+        <ListTodo
+          todoList={todoList}
+          setTodoList={setTodoList}
+          accessToken={accessToken}
+        />
+        <CreateTodo accessToken={accessToken} />
       </TodoBox>
     </Wrapper>
   );

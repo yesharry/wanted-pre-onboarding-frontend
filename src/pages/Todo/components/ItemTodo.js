@@ -1,8 +1,47 @@
 import React from 'react';
+import axios from 'axios';
 import styled, { css } from 'styled-components';
 import { MdDone, MdDelete } from 'react-icons/md';
+import { HiPencil } from 'react-icons/hi';
 
-const ItemTodo = ({ todoList }) => {
+const ItemTodo = ({ todoList, accessToken, setTodoList }) => {
+  // const checkTodo = id => async () => {
+  //   await axios({
+  //     method: 'PUT',
+  //     url: `https://pre-onboarding-selection-task.shop/todos/${id}`,
+  //     headers: {
+  //       Authorization: `Bearer ${accessToken}`,
+  //       'Content-Type': 'application/json',
+  //     },
+  //     data: {
+  //       todo: todoList.todo,
+  //       isCompleted: todoList.isCompleted,
+  //     },
+  //   })
+  //     .then(res => {
+  //       window.location.reload('/todo');
+  //     })
+  //     .catch(err => {
+  //       alert(err.res.data.message);
+  //     });
+  // };
+
+  const deleteTodo = id => async () => {
+    await axios({
+      method: 'DELETE',
+      url: `https://pre-onboarding-selection-task.shop/todos/${id}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then(res => {
+        alert('삭제되었습니다.');
+        window.location.reload('/todo');
+      })
+      .catch(err => {
+        alert(err.res.data.message);
+      });
+  };
   return (
     <Wrapper>
       {todoList && (
@@ -11,7 +50,10 @@ const ItemTodo = ({ todoList }) => {
             {todoList.isCompleted && <MdDone />}
           </CheckCircle>
           <Text isCompleted={todoList.isCompleted}>{todoList.todo}</Text>
-          <Remove>
+          <Edit>
+            <HiPencil />
+          </Edit>
+          <Remove onClick={deleteTodo(todoList.id)}>
             <MdDelete />
           </Remove>
         </ItemWrapper>
@@ -21,6 +63,19 @@ const ItemTodo = ({ todoList }) => {
 };
 
 const Wrapper = styled.div``;
+
+const Edit = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dee2e6;
+  font-size: 24px;
+  cursor: pointer;
+  &:hover {
+    color: blue;
+  }
+  display: none;
+`;
 
 const Remove = styled.div`
   display: flex;
@@ -42,6 +97,9 @@ const ItemWrapper = styled.div`
   padding-bottom: 12px;
   &:hover {
     ${Remove} {
+      display: initial;
+    }
+    ${Edit} {
       display: initial;
     }
   }
