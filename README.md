@@ -4,7 +4,7 @@
 
 ### ✅ 로그인, 회원가입
 
-<img src="https://user-images.githubusercontent.com/101863209/207669733-1fbbab83-c3ea-48ac-b2a7-e287edb5d9d0.gif" width="500" height="450"/>
+<img src="https://user-images.githubusercontent.com/101863209/207669733-1fbbab83-c3ea-48ac-b2a7-e287edb5d9d0.gif" width="600" height="450"/>
 
 **Assignment1**
 
@@ -23,11 +23,15 @@
 
 ### ✅ Todo List
 
+<img src="https://user-images.githubusercontent.com/101863209/207669985-1d7e6d8e-321f-4d1f-a62e-6dfcf93cdd9f.gif" width="600" height="450"/>
+
 **Assignment4**
 
 - `/todo`경로에 접속하면 투두 리스트의 목록을 볼 수 있도록 구현
 - 리스트 페이지에는 투두 리스트의 내용과 완료 여부 표시
 - 리스트 페이지에는 입력창과 추가 버튼이 있고, 추가 버튼을 누르면 입력창의 내용이 새로운 투두 리스트로 추가되도록 구현
+
+<img src="https://user-images.githubusercontent.com/101863209/207670260-f7f808ce-9efd-4c38-8131-9b40e8f535ae.gif" width="600" height="450"/>
 
 **Assginment5**
 
