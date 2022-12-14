@@ -2,7 +2,7 @@
 
 ## 기능 시연 영상
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/nD7fvlHOb5k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![시연 영상 유튜브 링크]](https://youtu.be/nD7fvlHOb5k)
 
 ### ✅ 로그인, 회원가입
 
