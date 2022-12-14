@@ -4,6 +4,8 @@
 
 ### ✅ 로그인, 회원가입
 
+<img src="https://user-images.githubusercontent.com/101863209/207669733-1fbbab83-c3ea-48ac-b2a7-e287edb5d9d0.gif" width="500" height="450"/>
+
 **Assignment1**
 
 - 이메일, 비밀번호의 유효성 검사 기능 구현 (이메일 조건: @ 포함, 비밀번호 조건 :8자 이상)
