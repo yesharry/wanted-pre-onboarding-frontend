@@ -2,7 +2,7 @@
 
 ## 기능 시연 영상
 
-[![시연 영상 유튜브 링크]](https://youtu.be/nD7fvlHOb5k)
+[시연 영상 유튜브](https://youtu.be/nD7fvlHOb5k)
 
 ### ✅ 로그인, 회원가입
 
