@@ -80,11 +80,11 @@ const ItemTodo = ({ todoList, accessToken }) => {
   return (
     <Wrapper>
       {modifyToggle ? (
-        <>
+        <InputWrapper>
           <Input autoFocus defaultValue={content.todo} onChange={editInput} />
           <Btn onClick={editTodo(content.id)}>완료</Btn>
           <Btn onClick={handleCancel}>취소</Btn>
-        </>
+        </InputWrapper>
       ) : (
         <ItemWrapper>
           <CheckCircle
@@ -108,9 +108,32 @@ const ItemTodo = ({ todoList, accessToken }) => {
 
 const Wrapper = styled.div``;
 
-const Input = styled.input``;
+const InputWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
-const Btn = styled.button``;
+const Input = styled.input`
+  width: 230px;
+  height: 35px;
+  font-size: 15px;
+  outline: none;
+  border: 2px solid lightgray;
+`;
+
+const Btn = styled.button`
+  width: 50px;
+  height: 40px;
+  background-color: #38d9a9;
+  border: none;
+  color: white;
+  &:hover {
+    background-color: #63e6be;
+  }
+  &:active {
+    background-color: #20c997;
+  }
+`;
 
 const Edit = styled.div`
   display: flex;

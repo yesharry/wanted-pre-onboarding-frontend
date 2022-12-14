@@ -20,7 +20,7 @@ function Router() {
           path="/"
           element={token ? <SignIn /> : <Navigate to="/todo" />}
         />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/auth/signup" element={<SignUp />} />
         <Route path="/todo" element={token ? <Navigate to="/" /> : <Todo />} />
       </Routes>
     </BrowserRouter>

@@ -44,21 +44,72 @@ const SignUp = () => {
 
   return (
     <Wrapper>
-      <h1>Sing Up Page</h1>
-      <IdInput onChange={handleInput} />
-      <PwInput onChange={handleInput} />
-      <Btn disabled={!isValid} isValid={isValid} onClick={postSignUp}>
-        회원가입
-      </Btn>
+      <SignBox>
+        <Head>
+          <h1>Sing Up Page</h1>
+        </Head>
+        <Container>
+          <IdInput onChange={handleInput} />
+          <PwInput onChange={handleInput} />
+          <Btn disabled={!isValid} isValid={isValid} onClick={postSignUp}>
+            회원가입
+          </Btn>
+        </Container>
+      </SignBox>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  height: 100vh;
+  background-color: #e9ecef;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const SignBox = styled.div`
+  width: 350px;
+  height: 350px;
+  position: relative;
+
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
+
+  /* margin-top: 96px;
+margin-bottom: 32px; */
+  display: flex;
+  flex-direction: column;
+`;
+
+const Head = styled.div`
+  color: #20c997;
+  padding-top: 20px;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-bottom: 10px;
+
+  border-bottom: 1px solid #e9ecef;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Container = styled.div`
+  height: 170px;
+
+  padding-top: 20px;
+  padding-left: 32px;
+  padding-right: 32px;
+  padding-bottom: 10px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const IdInput = styled.input.attrs(props => ({
@@ -68,6 +119,7 @@ const IdInput = styled.input.attrs(props => ({
 }))`
   width: 250px;
   height: 35px;
+  outline: none;
 `;
 
 const PwInput = styled(IdInput).attrs(props => ({
@@ -79,7 +131,7 @@ const PwInput = styled(IdInput).attrs(props => ({
 const Btn = styled.button`
   width: 258px;
   height: 40px;
-  background-color: ${({ isValid }) => (isValid ? 'tomato' : 'gray')};
+  background-color: ${({ isValid }) => (isValid ? '#38d9a9' : 'lightgray')};
   color: white;
   border: none;
   border-radius: 5px;
