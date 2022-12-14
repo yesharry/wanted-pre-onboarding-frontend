@@ -5,26 +5,26 @@ import { MdDone, MdDelete } from 'react-icons/md';
 import { HiPencil } from 'react-icons/hi';
 
 const ItemTodo = ({ todoList, accessToken, setTodoList }) => {
-  // const checkTodo = id => async () => {
-  //   await axios({
-  //     method: 'PUT',
-  //     url: `https://pre-onboarding-selection-task.shop/todos/${id}`,
-  //     headers: {
-  //       Authorization: `Bearer ${accessToken}`,
-  //       'Content-Type': 'application/json',
-  //     },
-  //     data: {
-  //       todo: todoList.todo,
-  //       isCompleted: todoList.isCompleted,
-  //     },
-  //   })
-  //     .then(res => {
-  //       window.location.reload('/todo');
-  //     })
-  //     .catch(err => {
-  //       alert(err.res.data.message);
-  //     });
-  // };
+  const checkTodo = id => async () => {
+    await axios({
+      method: 'PUT',
+      url: `https://pre-onboarding-selection-task.shop/todos/${id}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        todo: todoList.todo,
+        isCompleted: !todoList.isCompleted,
+      },
+    })
+      .then(res => {
+        window.location.reload('/todo');
+      })
+      .catch(err => {
+        alert(err.res.data.message);
+      });
+  };
 
   const deleteTodo = id => async () => {
     await axios({
@@ -46,7 +46,10 @@ const ItemTodo = ({ todoList, accessToken, setTodoList }) => {
     <Wrapper>
       {todoList && (
         <ItemWrapper>
-          <CheckCircle isCompleted={todoList.isCompleted}>
+          <CheckCircle
+            isCompleted={todoList.isCompleted}
+            onClick={checkTodo(todoList.id)}
+          >
             {todoList.isCompleted && <MdDone />}
           </CheckCircle>
           <Text isCompleted={todoList.isCompleted}>{todoList.todo}</Text>
