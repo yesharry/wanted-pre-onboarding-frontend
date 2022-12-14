@@ -2,6 +2,8 @@
 
 ## 기능 시연 영상
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/nD7fvlHOb5k" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ### ✅ 로그인, 회원가입
 
 <img src="https://user-images.githubusercontent.com/101863209/207669733-1fbbab83-c3ea-48ac-b2a7-e287edb5d9d0.gif" width="700" height="450"/>
