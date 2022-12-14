@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const HeadTodo = ({ todoList }) => {
+const HeadTodo = () => {
   const logOut = () => {
     localStorage.removeItem('access_token');
     window.location.reload();
@@ -9,7 +9,7 @@ const HeadTodo = ({ todoList }) => {
 
   return (
     <HeadWrapper>
-      <h1>TODO LIST ({todoList.length})</h1>
+      <h1>TODO LIST</h1>
       <Btn onClick={logOut}>로그아웃</Btn>
     </HeadWrapper>
   );

@@ -9,7 +9,7 @@ const ListTodo = ({ todoList, accessToken, setTodoList }) => {
 
   return (
     <ListWrapper>
-      {todoList.map(todoList => (
+      {todoList?.map(todoList => (
         <ItemTodo
           key={todoList.id}
           todoList={todoList}

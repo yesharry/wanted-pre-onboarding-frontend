@@ -25,7 +25,7 @@ const CreateTodo = ({ accessToken }) => {
     })
       .then(res => {
         alert('등록되었습니다.');
-        // window.location.reload('/todo');
+        window.location.reload('/todo');
       })
       .catch(err => {
         alert(err.res.data.message);

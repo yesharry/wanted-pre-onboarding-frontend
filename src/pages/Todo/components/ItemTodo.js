@@ -1,10 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import styled, { css } from 'styled-components';
 import { MdDone, MdDelete } from 'react-icons/md';
 import { HiPencil } from 'react-icons/hi';
 
-const ItemTodo = ({ todoList, accessToken, setTodoList }) => {
+const ItemTodo = ({ todoList, accessToken }) => {
+  const [modifyToggle, setModifyToggle] = useState(false);
+  const [content, setContent] = useState(todoList);
+  const [edit, setEdit] = useState('');
+
+  const editInput = e => {
+    setEdit(e.target.value);
+  };
+
+  const editTodo = id => async () => {
+    await axios({
+      method: 'PUT',
+      url: `https://pre-onboarding-selection-task.shop/todos/${id}`,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      data: {
+        todo: edit || content.todo,
+        isCompleted: content.isCompleted,
+      },
+    })
+      .then(res => {
+        window.location.reload('/todo');
+      })
+      .catch(err => {
+        alert(err.res.data.message);
+      });
+  };
+
   const checkTodo = id => async () => {
     await axios({
       method: 'PUT',
@@ -14,8 +43,8 @@ const ItemTodo = ({ todoList, accessToken, setTodoList }) => {
         'Content-Type': 'application/json',
       },
       data: {
-        todo: todoList.todo,
-        isCompleted: !todoList.isCompleted,
+        todo: content.todo,
+        isCompleted: !content.isCompleted,
       },
     })
       .then(res => {
@@ -42,21 +71,33 @@ const ItemTodo = ({ todoList, accessToken, setTodoList }) => {
         alert(err.res.data.message);
       });
   };
+
+  const handleCancel = () => {
+    setContent({ ...content, todo: content.todo });
+    setModifyToggle(false);
+  };
+
   return (
     <Wrapper>
-      {todoList && (
+      {modifyToggle ? (
+        <>
+          <Input autoFocus defaultValue={content.todo} onChange={editInput} />
+          <Btn onClick={editTodo(content.id)}>완료</Btn>
+          <Btn onClick={handleCancel}>취소</Btn>
+        </>
+      ) : (
         <ItemWrapper>
           <CheckCircle
-            isCompleted={todoList.isCompleted}
-            onClick={checkTodo(todoList.id)}
+            isCompleted={content.isCompleted}
+            onClick={checkTodo(content.id)}
           >
-            {todoList.isCompleted && <MdDone />}
+            {content.isCompleted && <MdDone />}
           </CheckCircle>
-          <Text isCompleted={todoList.isCompleted}>{todoList.todo}</Text>
-          <Edit>
+          <Text isCompleted={content.isCompleted}>{content.todo}</Text>
+          <Edit onClick={() => setModifyToggle(true)}>
             <HiPencil />
           </Edit>
-          <Remove onClick={deleteTodo(todoList.id)}>
+          <Remove onClick={deleteTodo(content.id)}>
             <MdDelete />
           </Remove>
         </ItemWrapper>
@@ -66,6 +107,10 @@ const ItemTodo = ({ todoList, accessToken, setTodoList }) => {
 };
 
 const Wrapper = styled.div``;
+
+const Input = styled.input``;
+
+const Btn = styled.button``;
 
 const Edit = styled.div`
   display: flex;
