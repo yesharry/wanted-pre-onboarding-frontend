@@ -3,16 +3,15 @@ import axios from 'axios';
 import CreateTodo from './components/CreateTodo';
 import HeadTodo from './components/HeadTodo';
 import ListTodo from './components/ListTodo';
-// import { API } from '../../config';
 import styled from 'styled-components';
 
 const Todo = () => {
-  const [todoList, setTodoList] = useState([]); // 리스트 불러오기 위한 state
-  const [accessToken, setAccessToken] = useState(''); // 토큰을 담기 위한 state
+  const [todoList, setTodoList] = useState([]);
+  const [accessToken, setAccessToken] = useState('');
 
   useEffect(() => {
     const access_token = localStorage.getItem('access_token');
-    setAccessToken(access_token); // 변수에 토큰 불러오고 state에 토큰 담음
+    setAccessToken(access_token);
 
     const getTodo = async () => {
       await axios({
@@ -23,7 +22,7 @@ const Todo = () => {
         },
       })
         .then(res => {
-          setTodoList(res.data); // state 안에 불러온 todo 담기
+          setTodoList(res.data);
         })
         .catch(err => {
           console.log(err.res.data.message);
@@ -31,7 +30,6 @@ const Todo = () => {
     };
     getTodo();
   }, []);
-  // 위의 코드들로 todoList와 accessToken 안에 각각의 데이터가 담긴 상태.
 
   return (
     <Wrapper>
@@ -66,8 +64,6 @@ const TodoBox = styled.div`
   border-radius: 16px;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.04);
 
-  /* margin-top: 96px;
-  margin-bottom: 32px; */
   display: flex;
   flex-direction: column;
 `;
