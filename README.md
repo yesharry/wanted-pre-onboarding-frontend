@@ -22,7 +22,8 @@ npm start
 - react-router-dom
 - styled-components
 
-### 로그인, 회원가입
+
+## 로그인, 회원가입
 
 Assignment1
 
@@ -39,7 +40,7 @@ Assignment3
   - 로컬 스토리지에 토큰이 있는 상태로 `/` 페이지에 접속하면 `/todo` 경로로 리다이렉트
   - 로컬 스토리지에 토큰이 없는 상태로 `/todo` 페이지에 접속하면 `/` 경로로 리다이렉트
 
-### Todo List
+## Todo List
 
 Assignment4
 
